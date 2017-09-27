@@ -25,7 +25,7 @@ class Transaction():
         return True
 
 class Payment(Transaction):
-    """ Transfer coins between accounts """
+    """ Transfer coins between wallets """
     def __init__(self, created_coins, consumed_coins, transaction_id=-1):
         self.created_coins = created_coins
         self.consumed_coins = consumed_coins

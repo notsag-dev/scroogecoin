@@ -16,14 +16,14 @@ class Goofy():
 
     def add_genesis_block(self):
         """ Add the genesis block to the blockchain and return
-            it. Return the hash of the genesis block
+            the hash of the genesis block
         """
         coin = Goofycoin(1, self.wallet.id, CoinId(0,0))
         return self.create_coins([coin])
 
     def create_coins(self, coins):
         """ Add a CoinCreation transaction to the blockchain
-            that creates the coins passed as parameters. Return
+            creating the coins passed as parameters. Return
             the hash of the added block.
         """
         transaction = CoinCreation(created_coins=coins)
@@ -34,7 +34,7 @@ class Goofy():
         """ Process a payment sent by a user.
             The paramenter signatures is a dictionary with
             the users' validation keys as keys and the payment
-            signature as values.
+            signatures as values.
         """
         # Verify users' signatures
         if (not payment.verify_signatures(signatures) or

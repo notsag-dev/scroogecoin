@@ -3,16 +3,16 @@ from hashutils import hash_sha256
 from base64 import b64encode
 
 class Blockchain():
-    """ Blockchain is composed by the blockchain itself (represented
-        by the class block in this project, and a series of
-        functions to manage it
+    """ Blockchain is composed by the blockchain itself
+        (represented as an array of blocks), and a series
+        of functions to manage it
     """
     def __init__(self):
         self.blocks = []
 
     def add_block(self, block):
         """ Add a block to the blockchain. Return the hash
-            of the added block
+            of the block.
         """
         if len(self.blocks) > 0:
             block.hash_previous_block = hash_sha256(self.blocks[-1])
@@ -84,8 +84,3 @@ class Block():
         return 'Block: ' + str(self.transaction.id) + \
             '\tHash previous block: ' + str(self.hash_previous_block) + '\n' + \
             str(self.transaction)
-
-
-
-
-

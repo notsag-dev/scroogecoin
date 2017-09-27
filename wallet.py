@@ -25,7 +25,6 @@ class Wallet():
              - payments: List of duples (wallet id, amount)
              - blockchain: The complete blockchain
         """
-        # TODO
         pass
 
     def devide_coin(self, coin, value):
@@ -35,6 +34,8 @@ class Wallet():
             The original coin is consumed and cannot be used
             again.
         """
+        if value > coin.value:
+            return
         created_coins = []
         created_coins.append(GoofyCoin(value, self.id))
         created_coins.append(GoofyCoin(coin.value - value, self.id))
