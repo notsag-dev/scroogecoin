@@ -15,7 +15,7 @@ class Blockchain():
             of the block.
         """
         if len(self.blocks) > 0:
-            block.hash_previous_block = hash_sha256(self.blocks[-1])
+            block.hash_previous_block = hash_sha256(str(self.blocks[-1]).encode('utf-8'))
         else:
             block.hash_previous_block = None
         block.transaction.id = len(self.blocks)
