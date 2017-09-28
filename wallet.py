@@ -1,7 +1,7 @@
 from ecdsa import SigningKey
 from hashutils import hash_sha256
 from base64 import b64encode
-from transaction import Payment
+from transaction import Payment, CoinCreation
 from goofycoin import Goofycoin
 
 class Wallet():
@@ -81,11 +81,14 @@ class Wallet():
             to this wallet
         """
         coins = []
-        for block in blockchain:
-            for coin in block.created_coins:
+        for block in blockchain.blocks:
+            tx = block.transaction
+            for coin in tx.created_coins:
                 if coin.wallet_id == self.id:
                     coins.append(coin)
-            for coin in block.consumed_coins:
+            if isinstance(tx, CoinCreation):
+                continue
+            for coin in tx.consumed_coins:
                 if con.wallet_id == self.id:
                     coins.remove(coin)
         return coins
