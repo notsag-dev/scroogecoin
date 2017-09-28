@@ -12,7 +12,7 @@ class Goofy():
         self.blockchain = Blockchain()
         self.genesis_block_hash = self.add_genesis_block()
         self.last_block_signature = self.wallet.sign(
-            self.genesis_block_hash.encode('utf-8'))
+            str(self.genesis_block_hash).encode('utf-8'))
 
     def add_genesis_block(self):
         """ Add the genesis block to the blockchain and return
@@ -44,3 +44,7 @@ class Goofy():
         # Check if all the coins that are being transferred
         # exist and were not consumed previously
         self.blockchain.check_coins(payment.consumed_coins)
+
+        block = Block(payment)
+        self.blockchain.add_block(block)
+
