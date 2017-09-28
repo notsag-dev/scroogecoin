@@ -47,10 +47,10 @@ class Payment(Transaction):
         concat = 'TransID: ' + str(self.id) + '\t' + 'Type: Payment\n' + \
             '\nConsumed coins: \n'
         for coin in self.consumed_coins:
-            concat += str(coin)
+            concat += str(coin) + '\n'
         concat += '\nCreated coins: \n'
         for coin in self.created_coins:
-            concat += str(coin)
+            concat += str(coin) + '\n'
         return concat
 
 class CoinCreation(Transaction):
@@ -63,5 +63,5 @@ class CoinCreation(Transaction):
         concat = 'TransID: ' + str(self.id) + '\t' + 'Type: Coin creation\n' + \
             '\nCreated coins: \n'
         for coin in self.created_coins:
-            concat += str(coin)
+            concat += str(coin) + '\n'
         return concat
