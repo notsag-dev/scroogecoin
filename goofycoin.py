@@ -27,6 +27,6 @@ class CoinId():
             transaction is included.
         - coin_num: the index of the coin into the transaction.
     """
-    def __init__(self, transaction_id, coin_num):
-        self.transaction_id = transaction_id
+    def __init__(self, coin_num, transaction_id=None):
         self.coin_num = coin_num
+        self.transaction_id = transaction_id
