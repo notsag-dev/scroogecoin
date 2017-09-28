@@ -5,7 +5,7 @@ from base64 import b64encode
 class Blockchain():
     """ Blockchain is composed by the blockchain itself
         (represented as an array of blocks), and a series
-        of functions to manage it
+        of functions to manage it.
     """
     def __init__(self):
         self.blocks = []
@@ -51,7 +51,7 @@ class Blockchain():
     def check_coins(self, coins):
         """ Check a group of coins. If the check_coin function
             returns false for any of the coins then the result is
-            false, otherwise the result is true
+            false, otherwise the result is true.
         """
         for coin in coins:
             if not self.check_coin(coin):
