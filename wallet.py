@@ -25,7 +25,38 @@ class Wallet():
              - payments: List of duples (wallet id, amount)
              - blockchain: The complete blockchain
         """
-        pass
+        consumed_coins = []
+        created_coins = []
+        my_coins = self.get_coins(blockchain)
+        # TODO: Order coins by their values
+
+        for wallet_id, amount in payments:
+            for coin in coins:
+                if coin.value <= amount:
+                    consumed_coins.append(coin)
+                    my_coins.remove(coin)
+                    amount -= coin.value
+                else:
+                    new_coins = self.devide_coin(coin, amount)
+                    consumed_ind = self.index_coin_value(new_coins, amount)
+                    consumed_coins += new_coins[consumed_ind]
+                    my_coins += new_coins[condumed_ind + 1]
+                    amount = 0
+                coins.remove(coin)
+                if amount == 0:
+                    break
+
+    def index_coin_value(self, coins, value):
+        """ Return the index of the first coin with the value
+            passed as parameter
+        """
+        ind = 0
+        while ind < len(coins):
+            if coins[ind].value == value:
+                return ind
+            else:
+                ind += 1
+        return None
 
     def devide_coin(self, coin, value):
         """ Devide a coin in two new coins. The paramenter
@@ -37,10 +68,13 @@ class Wallet():
         if value > coin.value:
             return
         created_coins = []
-        created_coins.append(GoofyCoin(value, self.id))
-        created_coins.append(GoofyCoin(coin.value - value, self.id))
+        created_coins.append(Goofycoin(value, self.id))
+        created_coins.append(Goofycoin(coin.value - value, self.id))
         payment = Payment(created_coins=created_coins, consumed_coins=[coin])
-        self.sign(str(payment))
+        self.sign(str(payment).encode('utf-8'))
+        # TODO send payment to goofy. This method must return the created
+        # coins returned by goofy (with their ids)
+        return created_coins
 
     def get_coins(self, blockchain):
         """ Get all active coins of the blockchain associated
