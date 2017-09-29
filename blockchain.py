@@ -1,6 +1,7 @@
 from transaction import Transaction, CoinCreation, Payment
 from hashutils import hash_sha256
 from base64 import b64encode
+from goofycoin import CoinId
 
 class Blockchain():
     """ Blockchain is composed by the blockchain itself
@@ -19,8 +20,14 @@ class Blockchain():
         else:
             block.hash_previous_block = None
         block.transaction.id = len(self.blocks)
+
+        coin_num = 0
+        for coin in block.transaction.created_coins:
+            coin.id = CoinId(coin_num, block.transaction.id)
+            coin_num += 1
+
         self.blocks.append(block)
-        return hash_sha256(str(block).encode('utf-8'))
+        return block
 
     def check_blockchain(self):
         """ Check the blockchain to find inconsistencies """
