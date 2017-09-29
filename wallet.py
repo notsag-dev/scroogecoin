@@ -11,15 +11,24 @@ class Wallet():
             self.signing_key = SigningKey.generate()
         else:
             self.signing_key = signing_key
-
         self.verifying_key = self.signing_key.get_verifying_key()
-        self.id = hash_sha256(b64encode(self.verifying_key.to_string()))
+        self.id = self.get_wallet_id_from_verifying_key(
+            self.verifying_key.to_string()
+        )
 
     def sign(self, message):
         """ Sign a message using the signing key """
         return self.signing_key.sign(message)
 
-    def pay(self, payments, blockchain):
+    def verify_signature(self, verifying_key, signature, message):
+        """ Verify a signature of a message using the verifying key """
+        return verifying_key.verify(signature, message)
+
+    def get_wallet_id_from_verifying_key(self, verifying_key):
+        """ Return the wallet key from the verifying key """
+        return hash_sha256(b64encode(verifying_key))
+
+    def create_payment(self, payments, blockchain):
         """ Transfer coins from this wallet to other(s).
             Parameters:
              - payments: List of duples (wallet id, amount)
@@ -45,6 +54,7 @@ class Wallet():
                 coins.remove(coin)
                 if amount == 0:
                     break
+        return Payment(created_coins, consumed_coins)
 
     def index_coin_value(self, coins, value):
         """ Return the index of the first coin with the value
