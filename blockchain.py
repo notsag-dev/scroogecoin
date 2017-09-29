@@ -44,16 +44,21 @@ class Blockchain():
 
     def check_coin(self, coin):
         """ Check if the coin was created and was not consumed """
-        create_coins = self.blocks[coin.id.transaction_id]
+        creation_id = coin.id.transaction_id
 
-        for block in self.blocks:
-            tx = block.transaction
-            if not created and coin in tx.created_coins:
-                created = True
-            if isinstance(tx, Payment) and coin in tx.consumed_coins:
-                consumed = True
-                break
-        return created and not consumed
+        # Check created
+        if coin not in self.blocks[creation_id].transaction.created_coins:
+            print('WARNING: Coin creation not found')
+            return False
+
+        # Check not consumed
+        for ind in range(creation_id + 1, len(self.blocks)):
+            transaction = self.blocks[ind].transaction
+            if isinstance(transaction, Payment) and coin in transaction.consumed_coins:
+                print('WARNING: Double spent attempt detected')
+                return False
+
+        return True
 
     def check_coins(self, coins):
         """ Check a group of coins. If the check_coin function
