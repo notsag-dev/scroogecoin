@@ -1,7 +1,7 @@
 from blockchain import Blockchain, Block
 from ecdsa import SigningKey
 from transaction import CoinCreation
-from hashutils import hash_sha256
+from hashutils import hash_sha256, hash_object
 from goofycoin import Goofycoin, CoinId
 from wallet import Wallet
 
@@ -10,9 +10,10 @@ class Goofy():
     def __init__(self):
         self.wallet = Wallet()
         self.blockchain = Blockchain()
-        self.genesis_block_hash = self.add_genesis_block()
+        self.genesis_block_hash = hash_object(self.add_genesis_block())
         self.last_block_signature = self.wallet.sign(
-            str(self.genesis_block_hash).encode('utf-8'))
+            self.genesis_block_hash.encode('utf-8')
+        )
 
     def add_genesis_block(self):
         """ Add the genesis block to the blockchain and return
@@ -32,19 +33,43 @@ class Goofy():
 
     def process_payment(self, payment, signatures):
         """ Process a payment sent by a user.
-            The paramenter signatures is a dictionary with
-            the users' validation keys as keys and the payment
-            signatures as values.
+            The paramenter signatures is a list of duples with
+            the users' validation keys as the first component
+            and the payment signatures as the second component.
         """
         # Verify users' signatures
-        if (not payment.verify_signatures(signatures) or
+        if (not self.verify_signatures(payment, signatures) or
                 not payment.verify_balance()):
-            return false
+            return None
 
         # Check if all the coins that are being transferred
         # exist and were not consumed previously
-        self.blockchain.check_coins(payment.consumed_coins)
+        if (not self.blockchain.check_coins(payment.consumed_coins)):
+            return None
 
         block = Block(payment)
-        self.blockchain.add_block(block)
+        return self.blockchain.add_block(block)
 
+    def verify_signatures(self, transaction, signatures):
+        """ Verify a list of transaction signatures """
+        # Verify all signatures with their corresponding
+        # public keys
+        for verifying_key, signature in signatures:
+            if not self.wallet.verify_signature(
+                    verifying_key, signature, str(transaction).encode('utf-8')):
+                return False
+
+        # Verify if all users whose coins will be consumed signed
+        # the payment
+        users = []
+        for verifying_key, _  in signatures:
+            users.append(
+                self.wallet.get_wallet_id_from_verifying_key(
+                    verifying_key.to_string()
+                )
+            )
+        for coin in transaction.consumed_coins:
+            if coin.wallet_id not in users:
+                return False
+
+        return True
