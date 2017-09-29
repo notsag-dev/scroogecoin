@@ -40,19 +40,19 @@ class TestWallet(unittest.TestCase):
         self.assertEqual(len(wallet_coins), 1)
         self.assertEqual(wallet_coins[0].value, 2)
 
-    #def test_sign_and_verify(self):
-    #    """ Sign a transaction and verify the signature """
-    #    wallet = Wallet()
-    #    coins = [Goofycoin(value=2, wallet_id=wallet.id)]
-    #    transaction = CoinCreation(created_coins=coins)
-    #    encoded_hash = encoded_hash_object(transaction)
-    #    self.assertTrue(
-    #        wallet.verify_signature(
-    #            wallet.verifying_key,
-    #            wallet.sign(encoded_hash),
-    #            encoded_hash
-    #        )
-    #    )
+    def test_sign_and_verify(self):
+        """ Sign a transaction and verify the signature """
+        wallet = Wallet()
+        coins = [Goofycoin(value=2, wallet_id=wallet.id)]
+        transaction = CoinCreation(created_coins=coins)
+        encoded_hash = encoded_hash_object(transaction)
+        self.assertTrue(
+            wallet.verify_signature(
+                wallet.verifying_key,
+                wallet.sign(encoded_hash),
+                encoded_hash
+            )
+        )
 
 if __name__ == '__main__':
     unittest.main()
