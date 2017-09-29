@@ -2,6 +2,7 @@ import unittest
 from goofy import Goofy
 from goofycoin import Goofycoin
 from transaction import CoinCreation, Payment
+from hashutils import encoded_hash_object
 
 class GoofyTest(unittest.TestCase):
     def test_genesis_is_included(self):
@@ -36,9 +37,8 @@ class GoofyTest(unittest.TestCase):
         goofy = Goofy()
         coin = Goofycoin(value=2, wallet_id=goofy.wallet.id)
         created_coins = goofy.create_coins([coin]).transaction.created_coins
-        print(goofy.blockchain)
         payment = Payment(created_coins=[coin], consumed_coins=created_coins)
-        signature = goofy.wallet.sign(str(payment).encode('utf-8'))
+        signature = goofy.wallet.sign(encoded_hash_object(payment))
         payment_result = goofy.process_payment(
             payment, [(goofy.wallet.verifying_key, signature)]
         )

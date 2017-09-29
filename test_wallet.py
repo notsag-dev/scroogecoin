@@ -2,6 +2,8 @@ import unittest
 from wallet import Wallet
 from goofycoin import Goofycoin
 from goofy import Goofy
+from transaction import CoinCreation
+from hashutils import hash_object, encoded_hash_object
 
 class TestWallet(unittest.TestCase):
     def test_devide_coin_in_two_coins(self):
@@ -37,6 +39,20 @@ class TestWallet(unittest.TestCase):
         wallet_coins = wallet1.get_coins(goofy.blockchain)
         self.assertEqual(len(wallet_coins), 1)
         self.assertEqual(wallet_coins[0].value, 2)
+
+    #def test_sign_and_verify(self):
+    #    """ Sign a transaction and verify the signature """
+    #    wallet = Wallet()
+    #    coins = [Goofycoin(value=2, wallet_id=wallet.id)]
+    #    transaction = CoinCreation(created_coins=coins)
+    #    encoded_hash = encoded_hash_object(transaction)
+    #    self.assertTrue(
+    #        wallet.verify_signature(
+    #            wallet.verifying_key,
+    #            wallet.sign(encoded_hash),
+    #            encoded_hash
+    #        )
+    #    )
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,7 +1,7 @@
 from blockchain import Blockchain, Block
 from ecdsa import SigningKey
 from transaction import CoinCreation
-from hashutils import hash_sha256, hash_object
+from hashutils import hash_sha256, hash_object, encoded_hash_object
 from goofycoin import Goofycoin, CoinId
 from wallet import Wallet
 
@@ -56,18 +56,15 @@ class Goofy():
         # public keys
         for verifying_key, signature in signatures:
             if not self.wallet.verify_signature(
-                    verifying_key, signature, str(transaction).encode('utf-8')):
+                    verifying_key, signature, encoded_hash_object(transaction)):
                 return False
 
         # Verify if all users whose coins will be consumed signed
         # the payment
         users = []
-        for verifying_key, _  in signatures:
-            users.append(
-                self.wallet.get_wallet_id_from_verifying_key(
-                    verifying_key.to_string()
-                )
-            )
+        for verifying_key, signature  in signatures:
+            wallet_id = self.wallet.get_wallet_id_from_verifying_key(verifying_key)
+            users.append(wallet_id)
         for coin in transaction.consumed_coins:
             if coin.wallet_id not in users:
                 return False

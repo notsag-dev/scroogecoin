@@ -18,10 +18,11 @@ class Payment(Transaction):
         """
         total_created = 0
         total_consumed = 0
+
         for consumed_coin in self.consumed_coins:
             total_consumed += consumed_coin.value
         for created_coin in self.created_coins:
-            total_consumed += created_coin.value
+            total_created += created_coin.value
         return total_consumed == total_created
 
     def __str__(self):

@@ -1,6 +1,5 @@
 from ecdsa import SigningKey
-from hashutils import hash_sha256
-from base64 import b64encode
+from hashutils import hash_sha256, hash_object, encoded_hash_object
 from transaction import Payment, CoinCreation
 from goofycoin import Goofycoin
 
@@ -13,7 +12,7 @@ class Wallet():
             self.signing_key = signing_key
         self.verifying_key = self.signing_key.get_verifying_key()
         self.id = self.get_wallet_id_from_verifying_key(
-            self.verifying_key.to_string()
+            self.verifying_key
         )
 
     def sign(self, message):
@@ -26,7 +25,7 @@ class Wallet():
 
     def get_wallet_id_from_verifying_key(self, verifying_key):
         """ Return the wallet key from the verifying key """
-        return hash_sha256(b64encode(verifying_key))
+        return hash_object(verifying_key.to_string())
 
     def create_payment(self, payments, blockchain):
         """ Transfer coins from this wallet to other(s).
