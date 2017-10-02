@@ -1,8 +1,8 @@
-class Goofycoin():
-    """ Each coin has an id, a value that is how many goofycoins
+class Scroogecoin():
+    """ Each coin has an id, a value that is how many scroogecoins
         it represents, and a wallet id that is its owner.
 
-        The coin id is assigned by Goofy when the transaction
+        The coin id is assigned by Scrooge when the transaction
         that creates the coin is included in the blockchain.
     """
     def __init__(self, value, wallet_id, coin_id=None):

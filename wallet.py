@@ -1,10 +1,10 @@
 from ecdsa import SigningKey
 from hashutils import hash_sha256, hash_object, encoded_hash_object
 from transaction import Payment, CoinCreation
-from goofycoin import Goofycoin
+from scroogecoin import Scroogecoin
 
 class Wallet():
-    """ A user of the goofycoin """
+    """ A user of the scroogecoin """
     def __init__(self, signing_key=None):
         if signing_key is None:
             self.signing_key = SigningKey.generate()
@@ -77,12 +77,12 @@ class Wallet():
         if value > coin.value:
             return
         created_coins = []
-        created_coins.append(Goofycoin(value, self.id))
-        created_coins.append(Goofycoin(coin.value - value, self.id))
+        created_coins.append(Scroogecoin(value, self.id))
+        created_coins.append(Scroogecoin(coin.value - value, self.id))
         payment = Payment(created_coins=created_coins, consumed_coins=[coin])
         self.sign(str(payment).encode('utf-8'))
-        # TODO send payment to goofy. This method must return the created
-        # coins returned by goofy (with their ids)
+        # TODO send payment to scrooge. This method must return the created
+        # coins returned by scrooge (with their ids)
         return created_coins
 
     def get_coins(self, blockchain):

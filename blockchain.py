@@ -1,7 +1,7 @@
 from transaction import Transaction, CoinCreation, Payment
 from hashutils import hash_sha256
 from base64 import b64encode
-from goofycoin import CoinId
+from scroogecoin import CoinId
 
 class Blockchain():
     """ Blockchain is composed by the blockchain itself

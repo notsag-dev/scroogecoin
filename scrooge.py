@@ -2,10 +2,10 @@ from blockchain import Blockchain, Block
 from ecdsa import SigningKey
 from transaction import CoinCreation
 from hashutils import hash_sha256, hash_object, encoded_hash_object
-from goofycoin import Goofycoin, CoinId
+from scroogecoin import Scroogecoin, CoinId
 from wallet import Wallet
 
-class Goofy():
+class Scrooge():
     """ Trusted entity that creates and manages the blockchain """
     def __init__(self):
         self.wallet = Wallet()
@@ -19,7 +19,7 @@ class Goofy():
         """ Add the genesis block to the blockchain and return
             the hash of the genesis block
         """
-        coin = Goofycoin(1, self.wallet.id, CoinId(0,0))
+        coin = Scroogecoin(1, self.wallet.id, CoinId(0,0))
         return self.create_coins([coin])
 
     def create_coins(self, coins):
