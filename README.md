@@ -39,7 +39,7 @@ print(scrooge.wallet)
 print(scrooge.blockchain)
 ```
 
-Output:
+**Output:**
 ```
 Wallet
 ------------------------------
@@ -67,7 +67,7 @@ Num: 0, Value: 1, Wallet id: 62a2fed508e58260232d2d11946078127e7ce52ad678baab429
  print(scrooge.blockchain)                
 ```
 
-Output:
+**Output:**
 ```
 Blockchain 
 ------------------------------
@@ -97,7 +97,7 @@ payment_result = scrooge.process_payment(
 )
 print(scrooge.blockchain)
 ```
-Output:
+**Output:**
 ```
 Blockchain 
 ------------------------------
