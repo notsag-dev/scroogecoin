@@ -2,7 +2,7 @@
 ScroogeCoin implementation in Python. This currency is defined in the book "Bitcoin and Cryptocurrency Technologies" (Princeton University)
 
 ## High level specification of the currency
-**Coin creation:**
+**Coin creation**
 - Scrooge is a trusted entity that can create coins.
 
 **Payment**
@@ -10,6 +10,7 @@ ScroogeCoin implementation in Python. This currency is defined in the book "Bitc
 - Payments must be signed by all the owners whose coins are consumed in the transaction.
 - Goofy check signatures, and verifies double-spending before approving the transaction.
 - When a coin is consumed it is deleted and other coin with the new owner is created.
+- The amount of created coins must be equal to the amout of consumed coins.
 
 **Blockchain**
 - Transactions are inserted by Scrooge into a blockchain.
@@ -31,7 +32,6 @@ from wallet import Wallet
 from transaction import CoinCreation, Payment
 from hashutils import encoded_hash_object
 ```
-
 **Creating Scrooge**
 ```
 scrooge = Scrooge()
