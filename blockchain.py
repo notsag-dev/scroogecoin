@@ -81,9 +81,10 @@ class Blockchain():
             return None
 
     def __str__(self):
-        concat = ''
+        separator = '-' * 30 + '\n'
+        concat = 'Blockchain \n' + separator
         for block in self.blocks:
-            concat += str(block)
+            concat += str(block) + separator
         return concat
 
 class Block():

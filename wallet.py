@@ -101,3 +101,10 @@ class Wallet():
                 if con.wallet_id == self.id:
                     coins.remove(coin)
         return coins
+
+    def __str__(self):
+        """ String representations of the wallet """
+        separator = '-' * 30 + '\n'
+        concat = 'Wallet\n' + separator + \
+            'Id: ' + self.id + '\n' + separator
+        return concat
