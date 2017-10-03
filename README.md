@@ -62,8 +62,7 @@ Num: 0, Value: 1, Wallet id: 62a2fed508e58260232d2d11946078127e7ce52ad678baab429
      Scroogecoin(value=200, wallet_id=wallet_1.id),
      Scroogecoin(value=500, wallet_id=wallet_1.id)
  ]
- created_block = scrooge.create_coins(coins)
- created_coins = created_block.transaction.created_coins
+ scrooge.create_coins(coins)
  print(scrooge.blockchain)                
 ```
 
