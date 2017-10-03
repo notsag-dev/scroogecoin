@@ -11,7 +11,7 @@ ScroogeCoin implementation in Python. This currency is defined in the book "Bitc
 **Payment**
 - Whoever owns a coin can transfer it on to someone else.
 - Payments must be signed by all the owners whose coins are consumed in the transaction.
-- Goofy check signatures, and verifies double-spending before approving the transaction.
+- Goofy verifies signatures and checks double-spending before approving the transaction.
 - When a coin is consumed it is deleted and other coin with the new owner is created.
 - The amount of created coins in a payment must be equal to the amout of consumed coins.
 
@@ -98,7 +98,7 @@ Num: 1, Value: 500, Wallet id: 26a9a4697e671a6ee06ae447536cb35ad1cf6ba39df80cf21
 
 **Payment**
 
-The following code executes a 600 scroogecoins payment from wallet_1 to wallet_2. The payment is created, and sent to Scrooge along with the verifying key and signature of the wallet_1. 
+The following code executes a 600 scroogecoins payment from wallet_1 to wallet_2. The payment is created, and sent to Scrooge along with the verifying key and the signature of the wallet_1. 
 ```
 wallet_2 = Wallet()
 pay_coin = Scroogecoin(value=600, wallet_id=wallet_2.id)
