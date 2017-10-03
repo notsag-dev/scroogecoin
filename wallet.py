@@ -2,6 +2,7 @@ from ecdsa import SigningKey
 from hashutils import hash_sha256, hash_object, encoded_hash_object
 from transaction import Payment, CoinCreation
 from scroogecoin import Scroogecoin
+import pdb
 
 class Wallet():
     """ A user of the scroogecoin """
@@ -27,11 +28,12 @@ class Wallet():
         """ Return the wallet key from the verifying key """
         return hash_object(verifying_key.to_string())
 
-    def create_payment(self, payments, blockchain):
+    def create_payment(self, payments, blockchain, scrooge):
         """ Transfer coins from this wallet to other(s).
             Parameters:
              - payments: List of duples (wallet id, amount)
              - blockchain: The complete blockchain
+             - scrooge: An interface to the Scrooge functions
         """
         consumed_coins = []
         created_coins = []
@@ -39,18 +41,24 @@ class Wallet():
         # TODO: Order coins by their values
 
         for wallet_id, amount in payments:
-            for coin in coins:
+            my_coins[:] = [
+                coin for coin in my_coins if coin not in consumed_coins
+            ]
+            for coin in my_coins:
                 if coin.value <= amount:
                     consumed_coins.append(coin)
-                    my_coins.remove(coin)
+                    consumed_amount = coin.value
                     amount -= coin.value
                 else:
-                    new_coins = self.devide_coin(coin, amount)
+                    new_coins = self.devide_coin(coin, amount, scrooge)
                     consumed_ind = self.index_coin_value(new_coins, amount)
-                    consumed_coins += new_coins[consumed_ind]
-                    my_coins += new_coins[condumed_ind + 1]
+                    consumed_coins.append(new_coins[consumed_ind])
+                    consumed_amount = amount
+                    my_coins.append(new_coins[consumed_ind + 1])
                     amount = 0
-                coins.remove(coin)
+                created_coins.append(
+                    Scroogecoin(value=consumed_amount, wallet_id=wallet_id)
+                )
                 if amount == 0:
                     break
         return Payment(created_coins, consumed_coins)
@@ -67,7 +75,7 @@ class Wallet():
                 ind += 1
         return None
 
-    def devide_coin(self, coin, value):
+    def devide_coin(self, coin, value, scrooge):
         """ Devide a coin in two new coins. The paramenter
             'value' is the value of one of the new coins
             and the value of the other is the rest.
@@ -80,10 +88,11 @@ class Wallet():
         created_coins.append(Scroogecoin(value, self.id))
         created_coins.append(Scroogecoin(coin.value - value, self.id))
         payment = Payment(created_coins=created_coins, consumed_coins=[coin])
-        self.sign(str(payment).encode('utf-8'))
-        # TODO send payment to scrooge. This method must return the created
-        # coins returned by scrooge (with their ids)
-        return created_coins
+        signature = self.sign(encoded_hash_object(payment))
+        new_block = scrooge.process_payment(
+            payment, [(self.verifying_key, signature)]
+        )
+        return new_block.transaction.created_coins
 
     def get_coins(self, blockchain):
         """ Get all active coins of the blockchain associated
@@ -98,7 +107,7 @@ class Wallet():
             if isinstance(tx, CoinCreation):
                 continue
             for coin in tx.consumed_coins:
-                if con.wallet_id == self.id:
+                if coin.wallet_id == self.id:
                     coins.remove(coin)
         return coins
 
