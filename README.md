@@ -1,5 +1,5 @@
 # ScroogeCoin
-ScroogeCoin implementation in Python. This currency is defined in the book "Bitcoin and Cryptocurrency Technologies" (Princeton University)
+ScroogeCoin implementation in Python 3. This currency is defined in the book "Bitcoin and Cryptocurrency Technologies" (Princeton University)
 
 ## High level comments on the currency
 **Scrooge**
@@ -25,6 +25,9 @@ ScroogeCoin implementation in Python. This currency is defined in the book "Bitc
 **Signing and hashing**
 - *ecdsa* is used for signing.
 - *sha256* is used for hashing.
+
+## Dependencies
+- ecdsa
 
 ## Usage example
 **Imports**
