@@ -68,7 +68,7 @@ Num: 0, Value: 1, Wallet id: 6d5a0eab2d03a8a7d033f02ddaf3688196d26c51cafebdba331
 
 **Coin creation**
 
-The coins have an id, a value and the wallet id of the owner. The coin id is assigned by Scrooge when the transaction that create the coin is inserted in the blockchain. This id is composed by its transaction id and the correlative number of the coin into the transaction.
+The coins have an id, a value and the wallet id of the owner. The coin id is assigned by Scrooge when the transaction that creates the coin is inserted in the blockchain. This id is composed by its transaction id and the correlative number of the coin into the transaction.
 ```
  wallet_1 = Wallet()
  coins = [
@@ -101,7 +101,7 @@ Num: 1, Value: 500, Wallet id: 26a9a4697e671a6ee06ae447536cb35ad1cf6ba39df80cf21
 
 **Payment**
 
-The following code executes a 600 scroogecoins payment from wallet_1 to wallet_2. The payment is created, and sent to Scrooge along with the verifying key and the signature of the wallet_1. 
+The following code executes a 600 scroogecoins payment from wallet_1 to wallet_2. The payment is created and sent to Scrooge along with the verifying key and the signature of the wallet_1. 
 ```
 wallet_2 = Wallet()
 pay_coin = Scroogecoin(value=600, wallet_id=wallet_2.id)
@@ -114,7 +114,7 @@ print(scrooge.blockchain)
 ```
 **Output**
 
-The output shows that one coin had to be "devided" to pay the 600 scroogecoins. The payment of the block 2 represent the coin division, in what the source wallet is equal to the destination wallet, and a coin with value 500 was devided in two coins with values 400 and 100. The block 3 has the movement between wallet_1 and wallet_2. 
+The output shows that one coin had to be "devided" to pay the 600 scroogecoins. The payment of the block 2 represents the coin division, in what the source wallet is equal to the destination wallet, and a coin with value 500 was devided in two coins with values 400 and 100. The block 3 has the movement between wallet_1 and wallet_2. 
 ```
 Blockchain 
 ------------------------------
