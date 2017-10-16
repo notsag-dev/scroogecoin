@@ -27,7 +27,7 @@ ScroogeCoin implementation in Python 3. This currency is defined in the book "Bi
 - *sha256* is used for hashing.
 
 ## Dependencies
-- ecdsa
+- [ecdsa](https://github.com/warner/python-ecdsa)
 
 ## Usage example
 **Imports**
