@@ -30,15 +30,6 @@ ScroogeCoin implementation in Python 3. This currency is defined in the book "Bi
 - [ecdsa](https://github.com/warner/python-ecdsa)
 
 ## Usage example
-**Imports**
-```
-from scrooge import Scrooge
-from scroogecoin import Scroogecoin
-from wallet import Wallet
-from transaction import CoinCreation, Payment
-from hashutils import encoded_hash_object
-```
-
 **Creating Scrooge**
 
 A wallet is assigned to Scrooge when it is created. The blockchain is created too, and the genesis block has a transaction that creates a coin assigned to the Scrooge's wallet. 
