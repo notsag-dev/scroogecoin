@@ -105,7 +105,7 @@ print(scrooge.blockchain)
 ```
 **Output**
 
-The output shows that one coin had to be "devided" to pay the 600 scroogecoins. The payment of the block 2 represents the coin division, in what the source wallet is equal to the destination wallet, and a coin with value 500 was devided in two coins with values 400 and 100. The block 3 has the movement between wallet_1 and wallet_2. 
+The output shows that one coin had to be "devided" to pay the 600 scroogecoins. The payment of the block 2 represents the coin division, in which the source wallet is equal to the destination wallet, and a coin with value 500 was devided into two coins with values 400 and 100. The block 3 contains the transfer between wallet_1 and wallet_2. 
 ```
 Blockchain 
 ------------------------------
