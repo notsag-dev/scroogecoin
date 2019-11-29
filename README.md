@@ -11,7 +11,7 @@ ScroogeCoin implementation in Python 3. This currency is defined in the book "Bi
 **Payment**
 - Whoever owns a coin can transfer it on to someone else.
 - Payments must be signed by all the owners whose coins are consumed in the transaction.
-- Goofy verifies signatures and checks double-spending before approving the transaction.
+- Scrooge verifies signatures and checks double-spending before approving the transaction.
 - When a coin is consumed it is deleted and other coin with the new owner is created.
 - The amount of created coins in a payment must be equal to the amout of consumed coins.
 
