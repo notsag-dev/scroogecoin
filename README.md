@@ -32,7 +32,7 @@ ScroogeCoin implementation in Python 3. This currency is defined in the book "Bi
 ## Usage example
 **Creating Scrooge**
 
-A wallet is assigned to Scrooge when it is created. The blockchain is created too, and the genesis block has a transaction that creates a coin assigned to the Scrooge's wallet. 
+A wallet is assigned to Scrooge when it is created. The blockchain is created too, and the genesis block has a transaction that creates a coin assigned to Scrooge's wallet. 
 ```
 scrooge = Scrooge()
 print(scrooge.wallet)
@@ -59,7 +59,7 @@ Num: 0, Value: 1, Wallet id: 6d5a0eab2d03a8a7d033f02ddaf3688196d26c51cafebdba331
 
 **Coin creation**
 
-The coins have an id, a value and the wallet id of the owner. The coin id is assigned by Scrooge when the transaction that creates the coin is inserted in the blockchain. This id is composed by its transaction id and the correlative number of the coin into the transaction.
+Coins have an id, a value and the wallet id of the owner. The coin id is assigned by Scrooge when the transaction that creates the coin is inserted in the blockchain. This id is composed by its transaction id and the correlative number of the coin into the transaction.
 ```
  wallet_1 = Wallet()
  coins = [
