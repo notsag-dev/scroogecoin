@@ -20,7 +20,7 @@ class ScroogeTest(unittest.TestCase):
             CoinCreation))
 
     def test_process_payment_without_signature(self):
-        """ Put coins in the scrooge's wallet, and transfer them
+        """ Put coins in Scrooge's wallet, and transfer them
             to the same wallet without signing
         """
         scrooge = Scrooge()
@@ -31,7 +31,7 @@ class ScroogeTest(unittest.TestCase):
         self.assertEqual(payment_result, None)
 
     def test_process_payment_with_signature(self):
-        """ Put coins in the Scrooge's wallet, and transfer them
+        """ Put coins in Scrooge's wallet, and transfer them
             to the same wallet
         """
         scrooge = Scrooge()
