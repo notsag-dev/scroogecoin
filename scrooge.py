@@ -24,8 +24,8 @@ class Scrooge():
 
     def create_coins(self, coins):
         """ Add a CoinCreation transaction to the blockchain
-            creating the coins passed as parameters. Return
-            the hash of the added block.
+            that creates the coins passed as parameters.
+            Return the hash of the added block.
         """
         transaction = CoinCreation(created_coins=coins)
         block = Block(transaction)
