@@ -12,8 +12,8 @@ class Blockchain():
         self.blocks = []
 
     def add_block(self, block):
-        """ Add a block to the blockchain. Return the hash
-            of the block.
+        """ Add a block to the blockchain.
+            Return the hash of the block.
         """
         if len(self.blocks) > 0:
             block.hash_previous_block = hash_sha256(str(self.blocks[-1]).encode('utf-8'))
